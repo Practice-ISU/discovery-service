@@ -1,16 +1,11 @@
 syntax = "proto3";
 
-package discovery_for_service;
+package discovery_registration;
 
 // Definition of ServiceRegistration to Discovery
 service ServiceRegistration {
   // Method to register a service by name and channel and save it to the database.
   rpc Registration(ServiceRequest) returns (ServiceResponse) {}
-}
-
-service DiscoveryPing {
-  // Method to check availability of a registered service.
-  rpc Ping(PingRequest) returns (PingResponse) {}
 }
 
 // Request message for registering a new service.
@@ -22,18 +17,6 @@ message ServiceRequest {
 
 // Response message after registering a new service.
 message ServiceResponse {
-  string timestamp = 1;
-  bool success = 2;
-}
-
-// Request a message to check the connection with the service.
-message PingRequest {
-  string timestamp = 1;
-  string service_name = 2;
-}
-
-// Response message after checking the availability of the service.
-message PingResponse {
   string timestamp = 1;
   bool success = 2;
 }

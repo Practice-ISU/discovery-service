@@ -10,12 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+	 <None Remove="Protos\discovery-ping.proto" />
+	 <None Remove="Protos\discovery-registration.proto" />
 	 <None Remove="Protos\discovery.proto" />
-    <None Remove="Protos\discovery-for-services.proto" />
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\discovery-for-services.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\discovery-ping.proto" GrpcServices="Client" />
+    <Protobuf Include="Protos\discovery-registration.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\discovery.proto" GrpcServices="Server" />
   </ItemGroup>
 
