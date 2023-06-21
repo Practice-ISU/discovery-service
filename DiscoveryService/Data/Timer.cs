@@ -35,7 +35,7 @@ namespace DiscoveryService.Data
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Microservice {service.Key} is not responding\nremoving from Available list\n");
+                    Console.WriteLine($"Microservice {service.Key} is not responding\nremoving from Available list\n{ex}\n");
                     InMemoryStorageServices.Delete(service.Key);
                 }
             }
