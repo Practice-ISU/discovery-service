@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package discovery;
+
+// Definition of DiscoveryService
+service DiscoveryService {
+  // Method to retrieve all registered services.
+  rpc GetServices(GetServicesRequest) returns (GetServicesResponse) {}
+
+  // Method to get the channel of a registered service based on its name.
+  rpc GetChannel(ServiceNameRequest) returns (ServiceInfo) {}
+}
+
+// Request message for retrieving all registered services.
+message GetServicesRequest {}
+
+// Response message for retrieving all registered services.
+message GetServicesResponse {
+  repeated ServiceInfo services = 1;
+}
+
+// Request message for retrieving channels of registered services.
+message ServiceNameRequest {
+    string service_name = 1;
+}
+
+// Definition of information about a service.
+message ServiceInfo {
+  string service_name = 1;
+  string channel = 2;  
+  enum Status {
+    WORKING = 0;
+    DOWN = 1;
+  }
+  Status status = 3;
+}
