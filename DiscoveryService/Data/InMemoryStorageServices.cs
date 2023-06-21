@@ -30,5 +30,10 @@
         {
             return _data;
         }
+
+        public static void Delete(string key)
+        {
+            _data.Remove(key);
+        }
     }
 }
