@@ -22,7 +22,7 @@ namespace DiscoveryService.Data
         {
             foreach (var service in InMemoryStorageServices.GetAll())
             {
-                var channel = GrpcChannel.ForAddress(service.Value);
+                var channel = GrpcChannel.ForAddress(service.Value["chanel_ping"]);
                 var client = new DiscoveryPing.DiscoveryPing.DiscoveryPingClient(channel);
 
                 try

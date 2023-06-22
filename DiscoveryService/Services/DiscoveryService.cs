@@ -14,7 +14,7 @@ namespace DiscoveryService.Services
                 response.Services.Add(new ServiceInfo
                 {
                     ServiceName = service.Key,
-                    Channel = service.Value,
+                    Channel = service.Value["chanel"],
                     Status = ServiceInfo.Types.Status.Working
                 });
             }

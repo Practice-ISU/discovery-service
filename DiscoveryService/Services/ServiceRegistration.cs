@@ -17,7 +17,7 @@ namespace DiscoveryService.Services
                 });
             }
 
-            InMemoryStorageServices.Set(request.ServiceName, request.Channel);
+            InMemoryStorageServices.Set(request.ServiceName, request.Channel, request.ChannelPing);
 
             return Task.FromResult(new ServiceResponse
             {
