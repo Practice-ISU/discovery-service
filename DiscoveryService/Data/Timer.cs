@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Grpc.Net.Client;
+using log4net;
 
 namespace DiscoveryService.Data
 {
@@ -9,6 +10,7 @@ namespace DiscoveryService.Data
     {
         private readonly Timer _timer;
         private readonly int _timeSleep = 5 * 60 * 1000;
+        private static readonly ILog log = LogManager.GetLogger(typeof(TimerRequests));
 
         public TimerRequests()
         {
@@ -20,22 +22,26 @@ namespace DiscoveryService.Data
 
         private async Task SendRequestsToServer()
         {
+            log.Info("Starting Ping");
             foreach (var service in InMemoryStorageServices.GetAll())
             {
                 var channel = GrpcChannel.ForAddress(service.Value["chanel_ping"]);
                 var client = new DiscoveryPing.DiscoveryPing.DiscoveryPingClient(channel);
+
+                log.Info($"A request is made to the client = {service.Key} using the ping channel = {service.Value["chanel_ping"]}");
 
                 try
                 {
                     var response = await client.PingAsync(new DiscoveryPing.PingRequest { Timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), ServiceName = service.Key });
                     if (response.Success)
                     {
+                        log.Info($"Service '{service.Key}' is available");
                         continue;
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Microservice {service.Key} is not responding\nremoving from Available list\n{ex}\n");
+                    log.Error($"Microservice {service.Key} is not responding\nremoving from Available list\n{ex}");
                     InMemoryStorageServices.Delete(service.Key);
                 }
             }
