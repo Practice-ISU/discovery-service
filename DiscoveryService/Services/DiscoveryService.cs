@@ -47,7 +47,7 @@ namespace DiscoveryService.Services
             }
             else
             {
-                logger.Error($"Error pinging service {service.Key} with channel {service.Value["chanel_ping"]}\n{ex}");
+                logger.Warn($"Service '{request.ServiceName}' not found");
                 throw new RpcException(new Status(StatusCode.NotFound, $"Service '{request.ServiceName}' not found"));
             }
         }
