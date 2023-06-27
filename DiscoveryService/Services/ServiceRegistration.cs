@@ -7,7 +7,7 @@ namespace DiscoveryService.Services
 {
     public class ServiceRegistration : DiscoveryRegistration.ServiceRegistration.ServiceRegistrationBase
     {
-        private static readonly ILog logger = LogManager.GetLogger(typeof(DiscoveryService));
+        private static readonly ILog logger = LogManager.GetLogger(typeof(ServiceRegistration));
         public override Task<ServiceResponse> Registration(ServiceRequest request, ServerCallContext context)
         {
             logger.Info($"Received registration request for service '{request.ServiceName}', channel '{request.Channel}'");
