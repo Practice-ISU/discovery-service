@@ -6,12 +6,22 @@ using log4net;
 
 namespace DiscoveryService.Data
 {
+    /// <summary>
+    /// TimerRequests class is responsible for sending ping requests to all registered microservices at a regular interval.
+    /// </summary>
     public class TimerRequests
     {
         private readonly Timer _timer;
+
+        // Time interval between consecutive ping requests in milliseconds
         private readonly int _timeSleep = 5 * 60 * 1000;
+
+        // Logger for the class
         private static readonly ILog log = LogManager.GetLogger(typeof(TimerRequests));
 
+        /// <summary>
+        /// Constructor for TimerRequests class.
+        /// </summary>
         public TimerRequests()
         {
             _timer = new Timer(_ => Task.Run(SendRequestsToServer),
@@ -20,6 +30,9 @@ namespace DiscoveryService.Data
                 TimeSpan.FromMilliseconds(_timeSleep));
         }
 
+        /// <summary>
+        /// Sends ping requests to all the registered microservices at an interval of 5 minutes.
+        /// </summary>
         private async Task SendRequestsToServer()
         {
             log.Info("Starting Ping");
