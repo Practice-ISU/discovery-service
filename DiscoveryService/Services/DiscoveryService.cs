@@ -5,10 +5,19 @@ using log4net;
 
 namespace DiscoveryService.Services
 {
+    /// <summary>
+    /// Represents the Discovery Service implementation.
+    /// </summary>
     public class DiscoveryService : Discovery.DiscoveryService.DiscoveryServiceBase
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(DiscoveryService));
 
+        /// <summary>
+        /// Retrieves all services from in-memory storage.
+        /// </summary>
+        /// <param name="request">The request object.</param>
+        /// <param name="context">The context of the server-side invocation.</param>
+        /// <returns>The response containing information about all registered services.</returns>
         public override Task<GetServicesResponse> GetServices(GetServicesRequest request, ServerCallContext context)
         {
             logger.Info("Received GetServices request");
@@ -29,6 +38,12 @@ namespace DiscoveryService.Services
             return Task.FromResult(response);
         }
 
+        /// <summary>
+        /// Retrieves the channel for a specific service.
+        /// </summary>
+        /// <param name="request">The request object.</param>
+        /// <param name="context">The context of the server-side invocation.</param>
+        /// <returns>The response containing information about the specified service.</returns>
         public override Task<ServiceInfo> GetChannel(ServiceNameRequest request, ServerCallContext context)
         {
             logger.Info($"Received GetChannel request for service '{request.ServiceName}'");

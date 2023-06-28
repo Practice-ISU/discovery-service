@@ -5,9 +5,19 @@ using log4net;
 
 namespace DiscoveryService.Services
 {
+    /// <summary>
+    /// Represents the Service Registration implementation.
+    /// </summary>
     public class ServiceRegistration : DiscoveryRegistration.ServiceRegistration.ServiceRegistrationBase
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ServiceRegistration));
+
+        /// <summary>
+        /// Registers a new service with the provided parameters.
+        /// </summary>
+        /// <param name="request">The request object containing information about the service.</param>
+        /// <param name="context">The context of the server-side invocation.</param>
+        /// <returns>The response indicating whether the registration was successful or not.</returns>
         public override Task<ServiceResponse> Registration(ServiceRequest request, ServerCallContext context)
         {
             logger.Info($"Received registration request for service '{request.ServiceName}', channel '{request.Channel}'");
@@ -31,6 +41,5 @@ namespace DiscoveryService.Services
                 Success = true
             });
         }
-
     }
 }
