@@ -35,13 +35,13 @@ namespace DiscoveryService.Data
         /// </summary>
         private async Task SendRequestsToServer()
         {
-            log.Info("Starting Ping");
+            log.Info($"Starting Ping for {InMemoryStorageServices.GetAll().Count} services");
             foreach (var service in InMemoryStorageServices.GetAll())
             {
                 var channel = GrpcChannel.ForAddress(service.Value["ping_endpoint"]);
                 var client = new DiscoveryPing.DiscoveryPing.DiscoveryPingClient(channel);
 
-                log.Info($"A request is made to the client = {service.Key} using the ping channel = {service.Value["ping_endpoint"]}");
+                log.Info($"A request is made to the client = '{service.Key}' using the ping channel = {service.Value["ping_endpoint"]}");
 
                 try
                 {
@@ -54,7 +54,7 @@ namespace DiscoveryService.Data
                 }
                 catch (Exception ex)
                 {
-                    log.Error($"Microservice {service.Key} is not responding\nremoving from Available list\n{ex}");
+                    log.Error($"Microservice '{service.Key}' is not responding\nremoving from Available list\n{ex}");
                     InMemoryStorageServices.Delete(service.Key);
                 }
             }

@@ -33,7 +33,7 @@ namespace DiscoveryService.Services
 
             InMemoryStorageServices.Set(request.ServiceName, request.Channel, request.ChannelPing);
 
-            logger.Info($"Service {request.ServiceName} registered successfully");
+            logger.Info($"Service '{request.ServiceName}' registered successfully");
 
             return Task.FromResult(new ServiceResponse
             {
