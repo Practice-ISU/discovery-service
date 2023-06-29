@@ -1,5 +1,5 @@
 using DiscoveryService.Data;
-[assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "Properties/log4net.config", Watch = true)]
 
 var builder = WebApplication.CreateBuilder(args);
 

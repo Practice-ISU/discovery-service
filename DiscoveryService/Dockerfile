@@ -18,5 +18,6 @@ RUN dotnet publish "DiscoveryService.csproj" -c Release -o /app/publish /p:UseAp
 
 FROM base AS final
 WORKDIR /app
+COPY Properties/log4net.config /app/Properties/log4net.config
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "DiscoveryService.dll"]
