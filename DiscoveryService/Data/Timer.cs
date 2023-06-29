@@ -38,10 +38,10 @@ namespace DiscoveryService.Data
             log.Info("Starting Ping");
             foreach (var service in InMemoryStorageServices.GetAll())
             {
-                var channel = GrpcChannel.ForAddress(service.Value["chanel_ping"]);
+                var channel = GrpcChannel.ForAddress(service.Value["ping_endpoint"]);
                 var client = new DiscoveryPing.DiscoveryPing.DiscoveryPingClient(channel);
 
-                log.Info($"A request is made to the client = {service.Key} using the ping channel = {service.Value["chanel_ping"]}");
+                log.Info($"A request is made to the client = {service.Key} using the ping channel = {service.Value["ping_endpoint"]}");
 
                 try
                 {
